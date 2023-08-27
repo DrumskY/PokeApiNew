@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <h1 class="text-center mt-3">Pokédex</h1>
+    <sup class="d-flex justify-content-center">by DrumskY</sup>
+    <div class="d-flex justify-content-around my-5">
+      <button (click)="prevPage()" [disabled]="changePage === 0" class="btn btn-warning btn-lg btn-radius ">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <input type="text" (keyup)="searchPokemon($event)" class="form-control w-25" placeholder="Enter a pokemon name..." />
+      <button (click)="nextPage()" [disabled]="changePage === 1280" class="btn btn-warning btn-lg btn-radius">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+<div>
+  <div>
+    <app-dark-mode-button></app-dark-mode-button>
+  </div>
+</div>
+    <div>
+        <app-pokemon-types-search
+          (typeSelected)="searchPokemonByType($event)"
+        ></app-pokemon-types-search>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 text-center align-items-stretch mb-4" *ngFor="let pokemon of details">
+
+            <ng-container *ngIf="isLoadingData; else content">
+              <!-- Skeleton loader -->
+              <div class="skeleton-loader">
+              </div>
+            </ng-container>
+            <ng-template #content>
+              <!-- Actual content -->
+              <app-pokemon-card
+                [name]="pokemon.name"
+                [types]="pokemon.types"
+                [image]="pokemon.sprites"
+                (typeColor)="typeColor"
+                (click)="goToPokemonDetails(pokemon.name, typeColor)"
+              ></app-pokemon-card>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end m-5">
+        <button (click)="scrollToTop()" class="btn btn-warning btn-lg btn-radius ">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <ng-template #loading>
+        <div class="text-center my-5">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+    </ng-template>
+</div>

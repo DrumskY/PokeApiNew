@@ -1,0 +1,25 @@
+<div>
+  <div *ngIf="pokemon">
+    <div class="d-flex flex-row align-items-center justify-content-between p-3" [ngClass]="getBackgroundColor()">
+      <i class="fas fa-arrow-left" style="font-size: x-large; cursor: pointer;" (click)="navigateBack()"></i>
+      <h1>Pokédex</h1>
+    </div>
+
+    <div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div>
+          <h1> {{pokemon.name[0].toUpperCase()}}{{pokemon.name.substr(1).toLowerCase()}} </h1>
+        </div>
+        <div class="d-flex flex-row">
+          <div class="p-2 m-1 rounded-circle {{type.type.name}}-class-background" [ngClass]="" *ngFor="let type of pokemon.types">
+            <img src="../../../assets/{{type.type.name}}.svg" alt="all-icon" style="height: 52px; width: 52px;" />
+          </div>
+        </div>
+        <div>
+          <img src="{{ pokemonImage }}" />  
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

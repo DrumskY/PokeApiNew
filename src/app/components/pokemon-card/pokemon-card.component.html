@@ -1,0 +1,22 @@
+<div class="card h-100" style="cursor: pointer;" [ngClass]="getBackgroundColor()">
+    <h2 class="card-title">{{name[0].toUpperCase()}}{{name.substr(1).toLowerCase()}}</h2>
+    <div class="d-flex flex-row justify-content-center">
+        <div *ngFor="let type of types">
+            <img src="../../../assets/{{type.type.name}}.svg">
+        </div>
+    </div>
+    <div class="card-body d-flex flex-column justify-content-center">
+        <ng-container *ngIf="image.other?.['official-artwork']?.front_default; else fallbackImage">
+          <img [src]="image.other?.['official-artwork']?.front_default" alt="Poke" class="w-50 mx-auto" />
+        </ng-container>
+        <ng-template #fallbackImage>
+          <ng-container *ngIf="image.other?.dream_world?.front_default; else fallbackImageSecond">
+            <img [src]="image.other?.dream_world?.front_default" alt="Poke" class="w-50 mx-auto"/>
+          </ng-container>
+          <ng-template #fallbackImageSecond>
+            <img [src]="image.front_shiny" alt="Poke" class="w-50 mx-auto"/>
+          </ng-template>
+        </ng-template>
+      </div>
+</div>
+
